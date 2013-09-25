@@ -1,4 +1,4 @@
-require 'middleclass.middleclass'
+local class = require 'middleclass.middleclass'
 
 Paddle = class('Paddle')
 
