@@ -2,16 +2,18 @@ local class = require 'middleclass.middleclass'
 
 Paddle = class('Paddle')
 
-function Paddle:initialize(screenx, edge_offset,  w, h, speed, side)
+function Paddle:initialize(edge_offset, w, h, speed, side)
     self.speed = speed
     self.side = side
     self.w = w
     self.h = h
 
+    self.y = love.graphics.getHeight()/2 - h/2
+
     if side == 'l' then
         self.x = edge_offset
     elseif side == 'r' then
-        self.x = screenx - edge_offset - w
+        self.x = love.graphics.getWidth() - edge_offset - w
     end
 end
 
@@ -36,6 +38,14 @@ function Paddle:bumping(ball)
     else
         return false
     end
+end
+
+function Paddle:move(up, down)
+
+end
+
+function Paddle:draw()
+    love.graphics.rectangle('fill', self.x, self.y, self.w, self.h)
 end
 
 Ball = class('Ball')
