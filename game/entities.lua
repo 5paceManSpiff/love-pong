@@ -40,8 +40,13 @@ function Paddle:bumping(ball)
     end
 end
 
-function Paddle:move(up, down)
-
+function Paddle:update(up, down)
+    if love.keyboard.isDown(up) and not love.keyboard.isDown(down) then
+        self.y = self.y - self.speed
+    end
+    if love.keyboard.isDown(down) and not love.keyboard.isDown(up) then
+        self.y = self.y + self.speed
+    end
 end
 
 function Paddle:draw()
@@ -50,7 +55,19 @@ end
 
 Ball = class('Ball')
 
-function Ball:initialize(w, h)
+function Ball:initialize(w, h, speed)
     self.w = w
     self.h = h
+    self.speed = {x = speed, y = 0}
+    self.x = love.graphics.getWidth()/2 - w/2
+    self.y = love.graphics.getHeight()/2 - h/2
+end
+
+function Ball:update()
+    self.x = self.x + self.speed.x
+    self.y = self.y + self.speed.y
+end
+
+function Ball:draw()
+    love.graphics.rectangle('fill', self.x, self.y, self.w, self.h)
 end
